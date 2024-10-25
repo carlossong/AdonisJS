@@ -1,0 +1,27 @@
+
+services:
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "3333:3333"
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - frontend
+      
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: shopping_cart
+    ports:
+      - '3306:3306'
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
